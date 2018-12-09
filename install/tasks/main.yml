@@ -1,0 +1,21 @@
+---
+# tasks file for install
+   - name : Install Database Software
+     command: /u01/app/instaladores/database/runInstaller -silent -responseFile /home/oracle/db.rsp -waitforcompletion
+     become: yes
+     become_user: oracle
+   
+   - name : Permisos Root
+     command: sh /u01/app/oraInventory/orainstRoot.sh 
+     become: yes
+     
+     
+   - name : Permisos root
+     command: sh /u01/app/oracle/product/12.1.0/dbhome_1/root.sh  
+     become: yes
+     
+  
+   - name : Claves BBDD
+     shell: sh /u01/app/oracle/product/12.1.0/dbhome_1/cfgtoollogs/configToolAllCommands RESPONSE_FILE=/home/oracle/cfgrsp.properties #2> /u01/status.log  
+     become: yes
+     become_user: oracle
